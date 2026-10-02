@@ -14,7 +14,7 @@ function App() {
       <p>{posts[0].title}</p>
       <p>{formattedDate}</p>
       <p>{posts[0].categories.map((category)=>(<span key={category}>{category}</span>))}</p>
-      <p>{posts[0].content}</p>
+      <div dangerouslySetInnerHTML={{ __html:posts[0].content}}/>
     </>
   )
 }
