@@ -9,8 +9,8 @@ function App() {
     <>
       <Header />
 
-      <main className='max-w-3xl mx-auto'>
-        <h1 className='text-[1.4rem] font-bold my-6'>記事一覧</h1>
+      <main className='max-w-[960px] mx-auto p-[24px_16px]'>
+        <h1 className='text-[1.4rem] font-bold mb-4'>記事一覧</h1>
         {posts.map((post) =>(<PostCard key={post.id} post={post} />))}
       </main>
 
