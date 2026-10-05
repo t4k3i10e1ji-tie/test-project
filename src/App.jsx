@@ -1,6 +1,8 @@
 import Header from './components/Header'
 import './App.css'
 import Home from './pages/Home'
+import { Routes, Route } from 'react-router'
+import PostDetail from './pages/PostDetail'
 
 function App() {
 
@@ -9,7 +11,10 @@ function App() {
       <Header />
 
       <main className='max-w-[960px] mx-auto p-[24px_16px]'>
-        <Home />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/posts/:id" element={<PostDetail />} />
+        </Routes>
       </main>
 
     </>
