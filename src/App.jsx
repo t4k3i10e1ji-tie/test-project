@@ -10,7 +10,7 @@ function App() {
     <>
       <Header />
 
-      <main className='max-w-[960px] mx-auto p-[24px_16px]'>
+      <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/posts/:id" element={<PostDetail />} />
