@@ -22,7 +22,7 @@ function PostDetail() {
       <p className='flex gap-[6px]'>{post.categories.map((category)=>(<span className="bg-gray-200 rounded-full text-gray-700 px-2 py-1 text-[0.8rem] text-[#374151]" key={category}>{category}</span>))}</p>
     </div>
 
-      <h1 className='text-[1.8rem] font-extrabold'>{ post.title }</h1>
+      <h1 className='text-[1.8rem] text-gray-900 font-extrabold'>{ post.title }</h1>
 
       <div className='leading-[1.8] text-[#1f2937]' dangerouslySetInnerHTML = {{ __html:post.content}}/>
 
