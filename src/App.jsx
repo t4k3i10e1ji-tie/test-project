@@ -1,21 +1,22 @@
-import Header from './components/Header'
-import { posts } from './data/posts'
-import PostCard from './components/PostCard'
-import './App.css'
+import Header from "./components/Header";
+import "./App.css";
+import Home from "./pages/Home";
+import { Routes, Route } from "react-router";
+import PostDetail from "./pages/PostDetail";
 
 function App() {
-
   return (
     <>
       <Header />
 
-      <main className='max-w-[960px] mx-auto p-[24px_16px]'>
-        <h1 className='text-[1.4rem] font-bold mb-4'>記事一覧</h1>
-        {posts.map((post) =>(<PostCard key={post.id} post={post} />))}
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/posts/:id" element={<PostDetail />} />
+        </Routes>
       </main>
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;

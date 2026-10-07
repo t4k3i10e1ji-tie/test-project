@@ -1,9 +1,12 @@
+import {Link} from 'react-router'
+
 function PostCard({post}) {
 
   const date = new Date(post.createdAt)
   const formattedDate = `${date.getFullYear()}年${date.getMonth() +1}月${date.getDate()}日`
 
   return (
+    <Link to={`/posts/${post.id}`}>
 
     <div className="flex items-start border-b border-gray-200 gap-4 py-4">
 
@@ -22,6 +25,7 @@ function PostCard({post}) {
     </div>
 
     </div>
+    </Link>
   )
 }
 
