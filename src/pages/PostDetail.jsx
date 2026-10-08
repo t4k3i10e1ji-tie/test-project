@@ -5,6 +5,7 @@ function PostDetail() {
   const { id } = useParams();
 
   const [post, setPost] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetcher = async () => {
@@ -13,10 +14,17 @@ function PostDetail() {
       );
       const data = await res.json();
       setPost(data.post);
+      setIsLoading(false);
     };
 
     fetcher();
-  }, []);
+  }, [id]);
+
+  if (isLoading) {
+    return (
+      <p className="max-w-[960px] mx-auto p-[1.5rem_1rem]">読み込み中...</p>
+    );
+  }
 
   if (!post)
     return (

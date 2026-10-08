@@ -13,7 +13,7 @@ function Home() {
     fetcher()
   }, [])
   return (
-    <div className="max-w-[960px] mx-auto">
+    <div className="max-w-[960px] mx-auto p-[1.5rem_1rem]">
       <h1 className="text-[1.4rem] font-bold mb-4">記事一覧</h1>
       {posts.map((post) => (
         <PostCard key={post.id} post={post} />

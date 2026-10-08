@@ -1,4 +1,4 @@
-// /src/data/posts.js
+
 export const posts = [
   {
     id: 1,
