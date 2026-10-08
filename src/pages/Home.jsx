@@ -8,12 +8,19 @@ function Home() {
   useEffect(() => {
     const fetcher = async () => {
       const res = await fetch("https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts")
-      const data =await res.json()
+      const data = await res.json()
       setPosts(data.posts)
       setIsLoading(false)
     }
     fetcher()
   }, [])
+
+  if (isLoading) {
+    return (
+      <p className="max-w-[960px] mx-auto p-[1.5rem_1rem]">読み込み中...</p>
+    );
+  }
+
   return (
     <div className="max-w-[960px] mx-auto p-[1.5rem_1rem]">
       <h1 className="text-[1.4rem] font-bold mb-4">記事一覧</h1>
