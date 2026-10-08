@@ -1,12 +1,36 @@
 import { useParams, Link } from "react-router";
-import { posts } from "../data/posts";
+import { useState, useEffect } from "react";
 
 function PostDetail() {
   const { id } = useParams();
-  const post = posts.find((post) => post.id === Number(id));
+
+  const [post, setPost] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetcher = async () => {
+      const res = await fetch(
+        `https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`,
+      );
+      const data = await res.json();
+      setPost(data.post);
+      setIsLoading(false);
+    };
+
+    fetcher();
+  }, [id]);
+
+  if (isLoading) {
+    return (
+      <p className="max-w-[960px] mx-auto p-[1.5rem_1rem]">読み込み中...</p>
+    );
+  }
+
   if (!post)
     return (
-      <p className="text-[1.8rem] font-bold text-center p-[1.5rem]">記事が見つかりませんでした</p>
+      <p className="text-[1.8rem] font-bold text-center p-[1.5rem]">
+        記事が見つかりませんでした
+      </p>
     );
   const date = new Date(post.createdAt);
   const formattedDate = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
