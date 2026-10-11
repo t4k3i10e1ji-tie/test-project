@@ -9,9 +9,11 @@ function Contact() {
   const [emailError, setEmailError] = useState("");
   const [messageError, setMessageError] = useState("");
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setNameError("");
@@ -47,8 +49,26 @@ function Contact() {
       setMessageError("メッセージは500文字以内で入力してください");
       return;
     }
+    setIsSubmitting(true);
 
-    console.log(name, email, message);
+    const res = await fetch(
+      "https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/contacts",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          message: message,
+        }),
+      },
+    );
+
+    setIsSubmitting(false);
+    setName("");
+    setEmail("");
+    setMessage("");
+    alert("送信しました");
   };
 
   return (
@@ -67,9 +87,11 @@ function Contact() {
             onChange={(e) => setName(e.target.value)}
             type="text"
             id="name"
+            disabled={isSubmitting}
           />
           <p className="text-red-500 text-sm">{nameError}</p>
         </div>
+
         {/* ---------- email ---------- */}
         <div className="mb-4">
           <label className="block mb-1" htmlFor="email">
@@ -81,9 +103,11 @@ function Contact() {
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             id="email"
+            disabled={isSubmitting}
           />
           <p className="text-red-500 text-sm">{emailError}</p>
         </div>
+
         {/*---------- message ---------- */}
         <div className="mb-4">
           <label className="block mb-1" htmlFor="message">
@@ -94,6 +118,7 @@ function Contact() {
             id="message"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            disabled={isSubmitting}
           ></textarea>
           <p className="text-red-500 text-sm">{messageError}</p>
         </div>
@@ -101,6 +126,7 @@ function Contact() {
         <button
           className="bg-gray-800 text-white rounded px-4 py-2"
           type="submit"
+          disabled={isSubmitting}
         >
           送信
         </button>
