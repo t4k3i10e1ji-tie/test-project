@@ -4,16 +4,58 @@ function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  
+
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [messageError, setMessageError] = useState("");
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    setNameError("");
+    setEmailError("");
+    setMessageError("");
+
+    if (name === "") {
+      setNameError("名前が入力されていません");
+      return;
+    }
+
+    if (name.length > 30) {
+      setNameError("名前は30文字以内で入力してください");
+      return;
+    }
+
+    if (email === "") {
+      setEmailError("メールアドレスが入力されていません");
+      return;
+    }
+
+    if (!emailPattern.test(email)) {
+      setEmailError("メールアドレスの形式が正しくありません");
+      return;
+    }
+
+    if (message === "") {
+      setMessageError("メッセージを入力してください");
+      return;
+    }
+
+    if (message.length > 500) {
+      setMessageError("メッセージは500文字以内で入力してください");
+      return;
+    }
+
     console.log(name, email, message);
   };
 
   return (
     <div className="max-w-[960px] mx-auto p-[1.5rem_1rem]">
       <h1 className="text-[1.4rem] font-bold mb-4">お問い合わせフォーム</h1>
-      <form onSubmit={handleSubmit}>
+
+      <form onSubmit={handleSubmit} noValidate>
         {/* ---------- name ---------- */}
         <div className="mb-4">
           <label className="block mb-1" htmlFor="name">
@@ -26,6 +68,7 @@ function Contact() {
             type="text"
             id="name"
           />
+          <p className="text-red-500 text-sm">{nameError}</p>
         </div>
         {/* ---------- email ---------- */}
         <div className="mb-4">
@@ -39,6 +82,7 @@ function Contact() {
             type="email"
             id="email"
           />
+          <p className="text-red-500 text-sm">{emailError}</p>
         </div>
         {/*---------- message ---------- */}
         <div className="mb-4">
@@ -51,6 +95,7 @@ function Contact() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           ></textarea>
+          <p className="text-red-500 text-sm">{messageError}</p>
         </div>
 
         <button
