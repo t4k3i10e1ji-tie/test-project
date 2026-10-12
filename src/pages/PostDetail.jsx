@@ -6,7 +6,9 @@ function PostDetail() {
   const post = posts.find((post) => post.id === Number(id));
   if (!post)
     return (
-      <p className="text-[1.8rem] font-bold text-center p-[1.5rem]">記事が見つかりませんでした</p>
+      <p className="text-[1.8rem] font-bold text-center p-[1.5rem]">
+        記事が見つかりませんでした
+      </p>
     );
   const date = new Date(post.createdAt);
   const formattedDate = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
