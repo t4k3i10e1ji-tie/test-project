@@ -51,24 +51,33 @@ function Contact() {
     }
     setIsSubmitting(true);
 
-    const res = await fetch(
-      "https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/contacts",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          message: message,
-        }),
-      },
-    );
+    try {
+      const res = await fetch(
+        "https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/contacts",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            message: message,
+          }),
+        },
+      );
 
-    setIsSubmitting(false);
-    setName("");
-    setEmail("");
-    setMessage("");
-    alert("送信しました");
+      if (!res.ok) {
+        throw new Error("送信に失敗しました");
+      }
+
+      setName("");
+      setEmail("");
+      setMessage("");
+      alert("送信しました");
+    } catch (error) {
+      alert("送信に失敗しました、もう一度お試しください");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
